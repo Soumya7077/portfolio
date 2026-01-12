@@ -28,10 +28,9 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Connect</h4>
             <div className="footer-social">
-              <a href="#" className="social-link">LinkedIn</a>
-              <a href="#" className="social-link">GitHub</a>
-              <a href="#" className="social-link">Twitter</a>
-              <a href="#" className="social-link">Email</a>
+              <a href="https://www.linkedin.com/in/soumya-ranjan-behera-b32b9525a/" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+              <a href="https://github.com/Soumya7077" target="_blank" rel="noopener noreferrer" className="social-link">GitHub</a>
+              <a href="mailto:emailsoumyabehera@gmail.com" className="social-link">Email</a>
             </div>
           </div>
         </div>

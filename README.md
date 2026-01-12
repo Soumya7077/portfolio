@@ -117,6 +117,23 @@ To change the color scheme, update the CSS variables in `src/index.css`:
    npm run preview
    ```
 
+5. **Deploy to GitHub Pages**
+   ```bash
+   npm run deploy
+   ```
+
+## 🌐 Deployment
+
+This portfolio is configured for easy deployment to GitHub Pages. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+
+**Quick Deploy:**
+```bash
+npm install
+npm run deploy
+```
+
+Your site will be live at: `https://YOUR_USERNAME.github.io/portfolio/`
+
 ## 📱 Responsive Breakpoints
 
 - **Desktop**: 1200px and above

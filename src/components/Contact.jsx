@@ -50,7 +50,9 @@ const Contact = () => {
                 <div className="contact-icon">📧</div>
                 <div>
                   <h4>Email</h4>
-                  <p>emailsoumyabehera@gmail.com</p>
+                  <a href="mailto:emailsoumyabehera@gmail.com" style={{color: '#666', textDecoration: 'none'}}>
+                    emailsoumyabehera@gmail.com
+                  </a>
                 </div>
               </div>
               
@@ -72,9 +74,9 @@ const Contact = () => {
             </div>
 
             <div className="social-links">
-              <a href="#" className="social-link">LinkedIn</a>
-              <a href="#" className="social-link">GitHub</a>
-              <a href="#" className="social-link">Twitter</a>
+              <a href="https://www.linkedin.com/in/soumya-ranjan-behera-b32b9525a/" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+              <a href="https://github.com/Soumya7077" target="_blank" rel="noopener noreferrer" className="social-link">GitHub</a>
+              <a href="mailto:emailsoumyabehera@gmail.com" className="social-link">Email</a>
             </div>
           </div>
           
