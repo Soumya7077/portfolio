@@ -1,32 +1,68 @@
-import React, { useState } from 'react'
+import { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
+  const form = useRef()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' })
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
+    // Clear status message when user starts typing
+    if (submitStatus.message) {
+      setSubmitStatus({ type: '', message: '' })
+    }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    })
-    alert('Thank you for your message! I\'ll get back to you soon.')
+    setIsSubmitting(true)
+    setSubmitStatus({ type: '', message: '' })
+
+    try {
+      // Replace these with your EmailJS credentials
+      const result = await emailjs.sendForm(
+        'YOUR_SERVICE_ID',      // Replace with your EmailJS Service ID
+        'YOUR_TEMPLATE_ID',     // Replace with your EmailJS Template ID
+        form.current,
+        'YOUR_PUBLIC_KEY'       // Replace with your EmailJS Public Key
+      )
+
+      console.log('Email sent successfully:', result.text)
+      
+      // Success
+      setSubmitStatus({
+        type: 'success',
+        message: '✅ Thank you! Your message has been sent successfully. I\'ll get back to you soon!'
+      })
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      })
+    } catch (error) {
+      console.error('Email send failed:', error)
+      
+      // Error
+      setSubmitStatus({
+        type: 'error',
+        message: '❌ Oops! Something went wrong. Please try again or email me directly at emailsoumyabehera@gmail.com'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -80,7 +116,13 @@ const Contact = () => {
             </div>
           </div>
           
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form ref={form} className="contact-form" onSubmit={handleSubmit}>
+            {submitStatus.message && (
+              <div className={`form-status ${submitStatus.type}`}>
+                {submitStatus.message}
+              </div>
+            )}
+            
             <div className="form-group">
               <input
                 type="text"
@@ -89,6 +131,7 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
             </div>
             
@@ -100,6 +143,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
             </div>
             
@@ -111,6 +155,7 @@ const Contact = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
             </div>
             
@@ -122,11 +167,16 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               ></textarea>
             </div>
             
-            <button type="submit" className="btn btn-primary">
-              Send Message
+            <button 
+              type="submit" 
+              className="btn btn-primary"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>
